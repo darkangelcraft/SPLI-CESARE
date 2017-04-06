@@ -44,7 +44,7 @@ while int_option is None:
         file = open(books[int(file_choosen)], "r+")
         story = file.read().lower()
 
-        print 'insert OFFSET:'
+        print 'insert OFFSET: (+2) (-2)'
         offset = raw_input()
 
         story_cipher = ""
@@ -62,9 +62,15 @@ while int_option is None:
                 old = ord(character)
                 #print int(old)
                 #numero shiftato destra o sinistra
-                new = int(old) + int(offset)
-                if new > 122:
-                    new = new - 26
+                if offset.__contains__('+'):
+                    new = int(old) + int(offset[1:])
+                    if new > 122:
+                        new = new - 26
+                else:
+                    new = int(old) - int(offset[1:])
+                    if new < 97:
+                        new = new + 26
+
                 story_cipher = story_cipher + chr(new)
                 #print chr(new)
             else:
