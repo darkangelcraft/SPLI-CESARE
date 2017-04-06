@@ -1,0 +1,51 @@
+SPECIFICHE DI CIFRAZIONE:
+  durante la cifratura il file.txt è modificato in modo da trasformare le lettere da maiuscole a minuscole!
+  per cifrare abbiamo deciso di shiftare in avanti o indietro SOLAMENTE le lettere dell'alfabeto inglese
+  'a,b,c,d,e,f,g,h,i,j,k,l,m,n,o,p,q,r,s,t,u,v,w,x,y,z' in tutto sono 26!
+  i caratteri speciali come ',#"$ e compagnia bella compresi i numeri sono stati lasciati invariati, come gli spazi.
+  
+  esempio:
+  
+  offset = +2
+  ----> prima= "1 ciao 8"
+  ----> dopo= "1 ekcq 8"
+  
+  offset = -2
+  ----> prima= "1 ciao 8"
+  ----> dopo= "1 agym 8"
+  
+  IMPORTANTE!
+la cifrazione è stata fatta tenendo conto che quando si arriva alla fine delle 26 lettere in ASCII, si ricomincia da capo!
+
+ASCII        CHARACTER
+______________________
+97		a	 
+98		b	 
+99		c	 
+100		d	 
+101		e	 
+102		f	 
+103		g	 
+104		h	 
+105		i	 
+106		j	 
+107		k	 
+108		l	 
+109	        m	 
+110		n	 
+111		o	 
+112		p	 
+113	        q	 
+114		r	 
+115		s	 
+116		t	 
+117	        u	 
+118		v	 
+119		w	 
+120		x	 
+121		y	 
+122		z	 
+123		{
+
+quindi se ho come lettera la "z" con un offset di +1 NON diventa "{", ma bensì "a"!
+  
