@@ -1,14 +1,19 @@
+# coding=utf-8
 import os
 import glob
+import re
 
 #variabile globale che mi serve per identificare il libro scelto da cifrare
 file_choosen = -1
+#cosi non mi stampa anche STORY_CIPHER e STORY_CLEAR
+books = glob.glob("*_.txt")
 
 print '\nchoose:'
 
 int_option = None
 while int_option is None:
 
+    print '0) dizionario'
     print '1) scegli file'
     print '2) cifra'
     print '3) decifra'
@@ -21,9 +26,28 @@ while int_option is None:
     except SyntaxError:
         option = None
 
+    if option1 == '0':
+        #per adesso l ho creato solo su un racconto, ho sonno ci guardo domani
+
+        file = open(books[0], "r+")
+        # bisogna togliere la punteggiature [".", ";", ":", "!", "?", "/", "\\", ",", "#", "@", "$", "&", ")", "(", "\""]
+        story = file.read().lower().replace("."," ").replace("'"," ").replace(";"," ").replace(":"," ").replace("!"," ").replace("?"," ").replace("/"," ").replace("'\'"," ").replace(','," ").replace("#"," ").replace("@"," ").replace("$"," ").replace("&"," ").replace(")"," ").replace('"'," ").replace("-"," ").replace("°"," ").replace("("," ").split()
+
+        array_without_occurence=""
+        for word in story:
+            if not array_without_occurence.__contains__(word):
+                array_without_occurence=array_without_occurence+word+'\n'
+
+        # scrivo e creo file cifrato
+        file = open("dictionary.txt", "a")
+        file.write(array_without_occurence)
+
+        print "dictionary created!\n\n"
+
+    # o o o o o o o o o o o o o o o o o o o o o o o o o o o o o o o o o o o o o o o o o o o o o o #
+
     #stampo i file da selezionare1
-    if option1 == '1':
-        books = glob.glob("*.txt")
+    elif option1 == '1':
         i=0
         for num in books:
             print '\t'+str(i)+') '+books[i]
