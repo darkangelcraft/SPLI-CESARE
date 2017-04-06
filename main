@@ -1,1 +1,113 @@
-#ciao
+import os
+import glob
+
+#variabile globale che mi serve per identificare il libro scelto da cifrare
+file_choosen = -1
+
+print '\nchoose:'
+
+int_option = None
+while int_option is None:
+
+    print '1) scegli file'
+    print '2) cifra'
+    print '3) invia'
+    print '4) ricevi'
+    print '5) decifra'
+    print '6) attacco bruteforce'
+
+    try:
+        option1 = raw_input()
+    except SyntaxError:
+        option = None
+
+    #stampo i file da selezionare
+    if option1 == '1':
+        books = glob.glob("*.txt")
+        i=0
+        for num in books:
+            print '\t'+str(i)+') '+books[i]
+            i=i+1
+
+        try:
+            file_choosen = raw_input()
+        except SyntaxError:
+            option = None
+
+    # o o o o o o o o o o o o o o o o o o o o o o o o o o o o o o o o o o o o o o o o o o o o o o #
+
+    #cifra
+    elif option1 == '2':
+        print 'the book choosen is: '+books[int(file_choosen)]
+
+        #aggiusto prima il file eliminando maiuscole al suo interno
+        file = open(books[int(file_choosen)], "r+")
+        story = file.read().lower()
+
+        print 'insert OFFSET:'
+        offset = raw_input()
+
+        story_cipher = ""
+
+        #ora scorro carattere per carattere e applico l offset alle lettere
+        for c in story:
+            #restituisce True se e un carattere ABCabc
+            if c.isalpha():
+                #ord('a') -> 97
+                #chr(97 + 3) -> chr(100) -> 'd'
+
+                #numero corrispondente in ASCII
+                character = str(c)
+                #print character
+                old = ord(character)
+                #print int(old)
+                #numero shiftato destra o sinistra
+                new = int(old) + int(offset)
+                if new > 122:
+                    new = new - 26
+                story_cipher = story_cipher + chr(new)
+                #print chr(new)
+            else:
+                character = str(c)
+                story_cipher=story_cipher+character
+
+        print story_cipher
+
+        #scrivo e creo file cifrato
+        file = open("STORY_CIPHER.txt", "w")
+        file.write(story_cipher)
+
+        print "story_cipher created!\n\n"
+
+    # o o o o o o o o o o o o o o o o o o o o o o o o o o o o o o o o o o o o o o o o o o o o o o #
+
+    elif option1 == '3':
+        print 'sending with netcat'
+        print "insert ip target:"
+        ip = raw_input()
+        os.system('sudo pv '+books[int(file_choosen)]+' | nc -w 1 ' + ip + ' 3333')
+
+    # o o o o o o o o o o o o o o o o o o o o o o o o o o o o o o o o o o o o o o o o o o o o o o #
+
+    elif option1 == '4':
+        print 'waiting...'
+        os.system('sudo nc -l -p 3333 | pv -rb > '+books[int(file_choosen)])
+
+    # o o o o o o o o o o o o o o o o o o o o o o o o o o o o o o o o o o o o o o o o o o o o o o #
+
+    elif option1 == '5':
+        print 'waiting...'
+        os.system('sudo nc -l -p 3333 | pv -rb > ' + books[int(file_choosen)])
+
+    # o o o o o o o o o o o o o o o o o o o o o o o o o o o o o o o o o o o o o o o o o o o o o o #
+
+    elif option1 == '6':
+        print 'waiting...'
+        os.system('sudo nc -l -p 3333 | pv -rb > ' + books[int(file_choosen)])
+
+    # o o o o o o o o o o o o o o o o o o o o o o o o o o o o o o o o o o o o o o o o o o o o o o #
+
+    else:
+        print "ERROR"
+
+
