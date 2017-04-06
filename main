@@ -11,9 +11,9 @@ while int_option is None:
 
     print '1) scegli file'
     print '2) cifra'
-    print '3) invia'
-    print '4) ricevi'
-    print '5) decifra'
+    print '3) decifra'
+    print '4) invia'
+    print '5) ricevi'
     print '6) attacco bruteforce'
 
     try:
@@ -21,7 +21,7 @@ while int_option is None:
     except SyntaxError:
         option = None
 
-    #stampo i file da selezionare
+    #stampo i file da selezionare1
     if option1 == '1':
         books = glob.glob("*.txt")
         i=0
@@ -77,7 +77,7 @@ while int_option is None:
                 character = str(c)
                 story_cipher=story_cipher+character
 
-        print story_cipher
+        #print story_cipher
 
         #scrivo e creo file cifrato
         file = open("STORY_CIPHER.txt", "w")
@@ -88,10 +88,52 @@ while int_option is None:
     # o o o o o o o o o o o o o o o o o o o o o o o o o o o o o o o o o o o o o o o o o o o o o o #
 
     elif option1 == '3':
-        print 'sending with netcat'
-        print "insert ip target:"
-        ip = raw_input()
-        os.system('sudo pv '+books[int(file_choosen)]+' | nc -w 1 ' + ip + ' 3333')
+        print 'the book to decipher is: ' + books[int(file_choosen)]
+
+        # aggiusto prima il file eliminando maiuscole al suo interno
+        file = open("STORY_CIPHER.txt", "r+")
+        story = file.read()
+
+        print 'insert OFFSET known:'
+        offset = raw_input()
+
+        story_clear = ""
+
+        # inizio decifrazione avendo noto l'offset
+        for c in story:
+            # restituisce True se e un carattere ABCabc
+            if c.isalpha():
+                # ord('a') -> 97
+                # chr(97 + 3) -> chr(100) -> 'd'
+
+                # numero corrispondente in ASCII
+                character = str(c)
+                # print character
+                old = ord(character)
+                # print int(old)
+                # numero shiftato destra o sinistra
+                if offset.__contains__('+'):
+                    new = int(old) + int(offset[1:])
+                    if new > 122:
+                        new = new - 26
+                else:
+                    new = int(old) - int(offset[1:])
+                    if new < 97:
+                        new = new + 26
+
+                story_clear = story_clear + chr(new)
+                # print chr(new)
+            else:
+                character = str(c)
+                story_clear = story_clear + character
+
+        # print story_clear
+
+        # scrivo e creo file cifrato
+        file = open("STORY_CLEAR.txt", "w")
+        file.write(story_clear)
+
+        print "story_clear created!\n\n"
 
     # o o o o o o o o o o o o o o o o o o o o o o o o o o o o o o o o o o o o o o o o o o o o o o #
 
@@ -102,8 +144,10 @@ while int_option is None:
     # o o o o o o o o o o o o o o o o o o o o o o o o o o o o o o o o o o o o o o o o o o o o o o #
 
     elif option1 == '5':
-        print 'waiting...'
-        os.system('sudo nc -l -p 3333 | pv -rb > ' + books[int(file_choosen)])
+        print 'sending with netcat'
+        print "insert ip target:"
+        ip = raw_input()
+        os.system('sudo pv ' + books[int(file_choosen)] + ' | nc -w 1 ' + ip + ' 3333')
 
     # o o o o o o o o o o o o o o o o o o o o o o o o o o o o o o o o o o o o o o o o o o o o o o #
 
