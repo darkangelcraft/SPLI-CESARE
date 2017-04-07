@@ -1076,7 +1076,7 @@
      See http://sherlock-holm.es for an electronic form of this text and
      additional information about it.
 
-     This text comes from the collection's version 3.1.
+     This text comes from the collection's version 3.1. END
 
 
 

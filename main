@@ -2,10 +2,11 @@
 import os
 import glob
 import re
+import json
 
-#variabile globale che mi serve per identificare il libro scelto da cifrare
+# variabile globale che mi serve per identificare il libro scelto da cifrare
 file_choosen = -1
-#cosi non mi stampa anche STORY_CIPHER e STORY_CLEAR
+# cosi non mi stampa anche STORY_CIPHER e STORY_CLEAR
 books = glob.glob("*_.txt")
 
 print '\nchoose:'
@@ -27,31 +28,143 @@ while int_option is None:
         option = None
 
     if option1 == '0':
-        #per adesso l ho creato solo su un racconto, ho sonno ci guardo domani
 
-        file = open(books[0], "r+")
-        # bisogna togliere la punteggiature [".", ";", ":", "!", "?", "/", "\\", ",", "#", "@", "$", "&", ")", "(", "\""]
-        story = file.read().lower().replace("."," ").replace("'"," ").replace(";"," ").replace(":"," ").replace("!"," ").replace("?"," ").replace("/"," ").replace("'\'"," ").replace(','," ").replace("#"," ").replace("@"," ").replace("$"," ").replace("&"," ").replace(")"," ").replace('"'," ").replace("-"," ").replace("°"," ").replace("("," ").split()
+        # Write JSON file
+        # with open('dictionary_letters.json', 'w') as outfile:
+        #   json_data = json.dumps(data)
+        #    outfile.write(json_data)
 
-        array_without_occurence=""
+        # Read JSON file
+        # with open('dictionary_letters.json') as input_file:
+        #   data_loaded = json.load(input_file)
+
+        #########
+
+        # inizializzazione vettore di key
+        # data = {}
+
+        # apro per sovrascrittura
+        # with open('data.txt') as json_file:
+        #     data = json.load(json_file)
+        #     #lettura
+        #     for p in data['key']:
+        #         print('letter: ' + p['letter'])
+        #         print('occ: ' + str(p['occ']))
+        #         print('')
+        #
+        # data['key'].append({
+        #     'letter': 'x',
+        #     'occ': 200
+        # })
+        # data['key'].append({
+        #     'letter': 'x',
+        #     'occ': 200
+        # })
+        #
+        # with open('data.txt', 'w') as outfile:
+        #     json.dump(data, outfile)
+
+
+        #### LETTERE ####
+        array_books = ""
+
+        i = 0
+        # scorro tutti i libri
+        while i < 6:
+            file = open(books[i], "r")
+            # bisogna togliere la punteggiature [".", ";", ":", "!", "?", "/", "\\", ",", "#", "@", "$", "&", ")", "(", "\""]
+            story = file.read().lower().replace(".", " ").replace("'", " ").replace(";", " ").replace(":", " ").replace(
+                "!", " ").replace("?", " ").replace("/", " ").replace("'\'", " ").replace(',', " ").replace("#",
+                                                                                                            " ").replace(
+                "@", " ").replace("$", " ").replace("&", " ").replace(")", " ").replace('"', " ").replace("-",
+                                                                                                          " ").replace(
+                "°", " ").replace("(", " ").split()
+
+            # faccio un merge di tutti i libri
+            array_books += str(story)
+            i += 1
+
+        # print array_books
+
+        # creo array string con tutte le lettere di tutti i libri
+        array_letters = ""
+
         for word in story:
-            if not array_without_occurence.__contains__(word):
-                array_without_occurence=array_without_occurence+word+'\n'
+            for c in word:
+                if c.isalpha():
+                    array_letters += c + ' '
 
-        # scrivo e creo file cifrato
-        file = open("dictionary.txt", "a")
-        file.write(array_without_occurence)
+        # adesso dell'array_letters ne calcolo le occorrenze
+        alphabet = ['a', 'b', 'c', 'd', 'e', 'f', 'g', 'h', 'i', 'j', 'k', 'l', 'm', 'n', 'o', 'p', 'q', 'r', 's', 't',
+                    'u', 'v', 'w', 'x', 'y', 'z']
 
-        print "dictionary created!\n\n"
+
+        data=[]
+
+        with open('data.txt', 'w') as outfile:
+            json_data = json.dumps(data)
+            outfile.write(json_data)
+
+        with open('data.txt') as input_file:
+          data_loaded = json.load(input_file)
+
+        j = 0
+        while j < 26:
+            print alphabet[j]
+            print array_letters.count(alphabet[j])
+            print ''
+            data.append({'letter':alphabet[j],'occ': array_letters.count(alphabet[j])})
+            j+=1
+
+        ## Save our changes to JSON file
+        jsonFile = open("data.txt", "w+")
+        jsonFile.write(json.dumps(data))
+        jsonFile.close()
+
+
+
+
+
+
+
+
+            #### PAROLE #####
+            # array_without_occurence = ""
+            #
+            # i=0
+            # #scorro tutti i libri
+            # while i < 6:
+            #     file = open(books[i], "r")
+            #     # bisogna togliere la punteggiature [".", ";", ":", "!", "?", "/", "\\", ",", "#", "@", "$", "&", ")", "(", "\""]
+            #     story = file.read().lower().replace("."," ").replace("'"," ").replace(";"," ").replace(":"," ").replace("!"," ").replace("?"," ").replace("/"," ").replace("'\'"," ").replace(','," ").replace("#"," ").replace("@"," ").replace("$"," ").replace("&"," ").replace(")"," ").replace('"'," ").replace("-"," ").replace("°"," ").replace("("," ").split()
+            #
+            #
+            #     #aggiungo le parole non doppie
+            #     for word in story:
+            #         if not array_without_occurence.__contains__(word):
+            #             array_without_occurence += word + '\n'
+            #
+            #     #passo al libro sucessivo
+            #     i+=1
+            #
+            # # scrivo e creo file cifrato
+            # file = open("dictionary_words.txt", "w")
+            # file.write(array_without_occurence)
+            #
+            # #leggo a video file appena creato
+            # file = open("dictionary_words.txt", "r")
+            # print file.read()
+            #
+            # print "dictionary created!\n\n"
 
     # o o o o o o o o o o o o o o o o o o o o o o o o o o o o o o o o o o o o o o o o o o o o o o #
 
-    #stampo i file da selezionare1
+    # stampo i file da selezionare1
     elif option1 == '1':
-        i=0
+        i = 0
         for num in books:
-            print '\t'+str(i)+') '+books[i]
-            i=i+1
+            print '\t' + str(i) + ') ' + books[i]
+            i = i + 1
 
         try:
             file_choosen = raw_input()
@@ -60,11 +173,11 @@ while int_option is None:
 
     # o o o o o o o o o o o o o o o o o o o o o o o o o o o o o o o o o o o o o o o o o o o o o o #
 
-    #cifra
+    # cifra
     elif option1 == '2':
-        print 'the book choosen is: '+books[int(file_choosen)]
+        print 'the book choosen is: ' + books[int(file_choosen)]
 
-        #aggiusto prima il file eliminando maiuscole al suo interno
+        # aggiusto prima il file eliminando maiuscole al suo interno
         file = open(books[int(file_choosen)], "r+")
         story = file.read().lower()
 
@@ -73,19 +186,19 @@ while int_option is None:
 
         story_cipher = ""
 
-        #ora scorro carattere per carattere e applico l offset alle lettere
+        # ora scorro carattere per carattere e applico l offset alle lettere
         for c in story:
-            #restituisce True se e un carattere ABCabc
+            # restituisce True se e un carattere ABCabc
             if c.isalpha():
-                #ord('a') -> 97
-                #chr(97 + 3) -> chr(100) -> 'd'
+                # ord('a') -> 97
+                # chr(97 + 3) -> chr(100) -> 'd'
 
-                #numero corrispondente in ASCII
+                # numero corrispondente in ASCII
                 character = str(c)
-                #print character
+                # print character
                 old = ord(character)
-                #print int(old)
-                #numero shiftato destra o sinistra
+                # print int(old)
+                # numero shiftato destra o sinistra
                 if offset.__contains__('+'):
                     new = int(old) + int(offset[1:])
                     if new > 122:
@@ -96,14 +209,14 @@ while int_option is None:
                         new = new + 26
 
                 story_cipher = story_cipher + chr(new)
-                #print chr(new)
+                # print chr(new)
             else:
                 character = str(c)
-                story_cipher=story_cipher+character
+                story_cipher = story_cipher + character
 
-        #print story_cipher
+        # print story_cipher
 
-        #scrivo e creo file cifrato
+        # scrivo e creo file cifrato
         file = open("STORY_CIPHER.txt", "w")
         file.write(story_cipher)
 
@@ -163,7 +276,7 @@ while int_option is None:
 
     elif option1 == '4':
         print 'waiting...'
-        os.system('sudo nc -l -p 3333 | pv -rb > '+books[int(file_choosen)])
+        os.system('sudo nc -l -p 3333 | pv -rb > ' + books[int(file_choosen)])
 
     # o o o o o o o o o o o o o o o o o o o o o o o o o o o o o o o o o o o o o o o o o o o o o o #
 
@@ -183,5 +296,3 @@ while int_option is None:
 
     else:
         print "ERROR"
-
-
