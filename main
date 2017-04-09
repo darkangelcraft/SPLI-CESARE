@@ -1,10 +1,10 @@
 # coding=utf-8
 import os
 import glob
-import re
 import json
-import difflib
 import ast
+import enchant
+import difflib
 
 # variabile globale che mi serve per identificare il libro scelto da cifrare
 file_choosen = -1
@@ -273,7 +273,7 @@ while int_option is None:
         dictionary = file1.read().lower()
 
         #il bruteforce viene fatto due alla volta, ovvero per il numero 3 viene fatto sia (+3) che (-3)
-        offset_bruteforce=2
+        offset_bruteforce=1
 
         while offset_bruteforce < 27:
             story_bruteforce_positive = ""
@@ -312,36 +312,56 @@ while int_option is None:
                     story_bruteforce_positive = story_bruteforce_positive + character
                     story_bruteforce_negative = story_bruteforce_negative + character
 
-            percent_plus = round(difflib.SequenceMatcher(None, story_bruteforce_positive, dictionary).ratio() * 10000)
-            percent_minus = round(difflib.SequenceMatcher(None, story_bruteforce_negative, dictionary).ratio() * 10000)
 
-            #stampo tutte le percentuali:
-            print 'percent (+'+str(offset_bruteforce)+') ---> '+ str(percent_plus)
-            print 'percent (-'+str(offset_bruteforce)+') ---> '+ str(percent_minus)
-            print '\n'
+            #cerco di capire se le parole decriptate sono della lingua inglese
+            english = enchant.Dict("en_US")
 
-            #cerco di capire la percentuale giusta
-            if int(percent_plus) > 90:
+            #mi faccio due array di 0 e 1 in base a SI e inglese o NO non lo e
+            en_pos=[]
+            en_neg=[]
+
+            i=0
+            # visto che hanno entrambe uguale lunghezza
+            while i < len(story_bruteforce_positive.split()):
+                wordp=story_bruteforce_positive.split()[i]
+                if dictionary.__contains__(wordp):
+                    en_pos.append('True')
+                else:
+                    en_pos.append('False')
+
+                wordn = story_bruteforce_negative.split()[i]
+                if dictionary.__contains__(wordn):
+                    en_neg.append('True')
+                else:
+                    en_neg.append('False')
+                i += 1
+
+            percent_plus = (float(en_pos.count('True'))/float(len(en_pos)))*100
+            percent_minus= (float(en_neg.count('True'))/float(len(en_neg)))*100
+
+            if int(percent_plus) > 80:
                 print "# FIND! #"
-                print 'the offset used is (-'+str(offset_bruteforce)+')\n'
+                print 'the offset used is (+' + str(offset_bruteforce) + ')\n'
 
                 # scrivo e creo file cifrato
                 file = open("STORY_BRUTEFORCE.txt", "w")
                 file.write(story_bruteforce_positive)
 
-                offset_bruteforce=28
+                offset_bruteforce = 28
 
-            elif int(percent_minus) > 90:
+            elif int(percent_minus) > 80:
                 print "# FIND! #"
-                print 'the offset used is (+'+str(offset_bruteforce) + ')\n'
+                print 'the offset used is (-' + str(offset_bruteforce) + ')\n'
 
                 # scrivo e creo file cifrato
                 file = open("STORY_BRUTEFORCE.txt", "w")
                 file.write(story_bruteforce_negative)
 
-                offset_bruteforce=28
+                offset_bruteforce = 28
 
+            #fallito passo all offset successivo
             offset_bruteforce+=1
+
 
         print "story_bruteforce created!\n\n"
 
