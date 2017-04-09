@@ -28,134 +28,93 @@ while int_option is None:
         option = None
 
     if option1 == '0':
+        print '1) per lettere'
+        print '2) per parole'
 
-        # Write JSON file
-        # with open('dictionary_letters.json', 'w') as outfile:
-        #   json_data = json.dumps(data)
-        #    outfile.write(json_data)
-
-        # Read JSON file
-        # with open('dictionary_letters.json') as input_file:
-        #   data_loaded = json.load(input_file)
-
-        #########
-
-        # inizializzazione vettore di key
-        # data = {}
-
-        # apro per sovrascrittura
-        # with open('data.txt') as json_file:
-        #     data = json.load(json_file)
-        #     #lettura
-        #     for p in data['key']:
-        #         print('letter: ' + p['letter'])
-        #         print('occ: ' + str(p['occ']))
-        #         print('')
-        #
-        # data['key'].append({
-        #     'letter': 'x',
-        #     'occ': 200
-        # })
-        # data['key'].append({
-        #     'letter': 'x',
-        #     'occ': 200
-        # })
-        #
-        # with open('data.txt', 'w') as outfile:
-        #     json.dump(data, outfile)
-
+        opt=raw_input()
 
         #### LETTERE ####
-        array_books = ""
+        if opt == '1':
 
-        i = 0
-        # scorro tutti i libri
-        while i < 6:
-            file = open(books[i], "r")
-            # bisogna togliere la punteggiature [".", ";", ":", "!", "?", "/", "\\", ",", "#", "@", "$", "&", ")", "(", "\""]
-            story = file.read().lower().replace(".", " ").replace("'", " ").replace(";", " ").replace(":", " ").replace(
-                "!", " ").replace("?", " ").replace("/", " ").replace("'\'", " ").replace(',', " ").replace("#",
-                                                                                                            " ").replace(
-                "@", " ").replace("$", " ").replace("&", " ").replace(")", " ").replace('"', " ").replace("-",
-                                                                                                          " ").replace(
-                "°", " ").replace("(", " ").split()
+            array_books = ""
 
-            # faccio un merge di tutti i libri
-            array_books += str(story)
-            i += 1
+            i = 0
+            # scorro tutti i libri
+            while i < 6:
+                file = open(books[i], "r")
+                # bisogna togliere la punteggiature [".", ";", ":", "!", "?", "/", "\\", ",", "#", "@", "$", "&", ")", "(", "\""]
+                story = file.read().lower().replace(".", " ").replace("'", " ").replace(";", " ").replace(":", " ").replace("!", " ").replace("?", " ").replace("/", " ").replace("'\'", " ").replace(',', " ").replace("#"," ").replace("@", " ").replace("$", " ").replace("&", " ").replace(")", " ").replace('"', " ").replace("-"," ").replace("°", " ").replace("(", " ").split()
 
-        # print array_books
+                # faccio un merge di tutti i libri
+                array_books += str(story)
+                i += 1
 
-        # creo array string con tutte le lettere di tutti i libri
-        array_letters = ""
+            # creo array string con tutte le lettere di tutti i libri
+            array_letters = ""
 
-        for word in story:
-            for c in word:
-                if c.isalpha():
-                    array_letters += c + ' '
+            for word in story:
+                for c in word:
+                    if c.isalpha():
+                        array_letters += c + ' '
 
-        # adesso dell'array_letters ne calcolo le occorrenze
-        alphabet = ['a', 'b', 'c', 'd', 'e', 'f', 'g', 'h', 'i', 'j', 'k', 'l', 'm', 'n', 'o', 'p', 'q', 'r', 's', 't',
-                    'u', 'v', 'w', 'x', 'y', 'z']
+            # adesso dell'array_letters ne calcolo le occorrenze
+            alphabet = ['a', 'b', 'c', 'd', 'e', 'f', 'g', 'h', 'i', 'j', 'k', 'l', 'm', 'n', 'o', 'p', 'q', 'r', 's', 't','u', 'v', 'w', 'x', 'y', 'z']
+
+            #inizializzo file json
+            data=[]
+
+            with open('dictionary_letters.txt', 'w') as outfile:
+                json_data = json.dumps(data)
+                outfile.write(json_data)
+
+            with open('dictionary_letters.txt') as input_file:
+              data_loaded = json.load(input_file)
+
+            j = 0
+            while j < 26:
+                #print alphabet[j]
+                #print array_letters.count(alphabet[j])
+                #print ''
+                data.append({'letter':alphabet[j],'occ': array_letters.count(alphabet[j])})
+                j+=1
+
+            ## Save our changes to JSON file
+            jsonFile = open("dictionary_letters.txt", "w+")
+            jsonFile.write(json.dumps(data))
+            jsonFile.close()
+
+            print "dictionary_letters created!\n\n"
+
+        #### PAROLE #####
+        elif opt == '2':
+
+            array_without_occurence = ""
+
+            i=0
+            #scorro tutti i libri
+            while i < 6:
+                file = open(books[i], "r")
+                # bisogna togliere la punteggiature [".", ";", ":", "!", "?", "/", "\\", ",", "#", "@", "$", "&", ")", "(", "\""]
+                story = file.read().lower().replace("."," ").replace("'"," ").replace(";"," ").replace(":"," ").replace("!"," ").replace("?"," ").replace("/"," ").replace("'\'"," ").replace(','," ").replace("#"," ").replace("@"," ").replace("$"," ").replace("&"," ").replace(")"," ").replace('"'," ").replace("-"," ").replace("°"," ").replace("("," ").split()
 
 
-        data=[]
+                #aggiungo le parole non doppie
+                for word in story:
+                    if not array_without_occurence.__contains__(word):
+                        array_without_occurence += word + '\n'
 
-        with open('data.txt', 'w') as outfile:
-            json_data = json.dumps(data)
-            outfile.write(json_data)
+                #passo al libro sucessivo
+                i+=1
 
-        with open('data.txt') as input_file:
-          data_loaded = json.load(input_file)
+            # scrivo e creo file cifrato
+            file = open("dictionary_words.txt", "w")
+            file.write(array_without_occurence)
 
-        j = 0
-        while j < 26:
-            print alphabet[j]
-            print array_letters.count(alphabet[j])
-            print ''
-            data.append({'letter':alphabet[j],'occ': array_letters.count(alphabet[j])})
-            j+=1
+            #leggo a video file appena creato
+            file = open("dictionary_words.txt", "r")
+            print file.read()
 
-        ## Save our changes to JSON file
-        jsonFile = open("data.txt", "w+")
-        jsonFile.write(json.dumps(data))
-        jsonFile.close()
-
-
-
-
-
-
-
-
-            #### PAROLE #####
-            # array_without_occurence = ""
-            #
-            # i=0
-            # #scorro tutti i libri
-            # while i < 6:
-            #     file = open(books[i], "r")
-            #     # bisogna togliere la punteggiature [".", ";", ":", "!", "?", "/", "\\", ",", "#", "@", "$", "&", ")", "(", "\""]
-            #     story = file.read().lower().replace("."," ").replace("'"," ").replace(";"," ").replace(":"," ").replace("!"," ").replace("?"," ").replace("/"," ").replace("'\'"," ").replace(','," ").replace("#"," ").replace("@"," ").replace("$"," ").replace("&"," ").replace(")"," ").replace('"'," ").replace("-"," ").replace("°"," ").replace("("," ").split()
-            #
-            #
-            #     #aggiungo le parole non doppie
-            #     for word in story:
-            #         if not array_without_occurence.__contains__(word):
-            #             array_without_occurence += word + '\n'
-            #
-            #     #passo al libro sucessivo
-            #     i+=1
-            #
-            # # scrivo e creo file cifrato
-            # file = open("dictionary_words.txt", "w")
-            # file.write(array_without_occurence)
-            #
-            # #leggo a video file appena creato
-            # file = open("dictionary_words.txt", "r")
-            # print file.read()
-            #
-            # print "dictionary created!\n\n"
+            print "dictionary_words created!\n\n"
 
     # o o o o o o o o o o o o o o o o o o o o o o o o o o o o o o o o o o o o o o o o o o o o o o #
 
