@@ -4,6 +4,7 @@ import glob
 import re
 import json
 import difflib
+import ast
 
 # variabile globale che mi serve per identificare il libro scelto da cifrare
 file_choosen = -1
@@ -37,27 +38,39 @@ while int_option is None:
         #### LETTERE ####
         if opt == '1':
 
-            array_books = ""
+            array_books = []
+            story = []
 
             i = 0
             # scorro tutti i libri
             while i < 6:
                 file = open(books[i], "r")
                 # bisogna togliere la punteggiature [".", ";", ":", "!", "?", "/", "\\", ",", "#", "@", "$", "&", ")", "(", "\""]
-                story = file.read().lower().replace(".", " ").replace("'", " ").replace(";", " ").replace(":", " ").replace("!", " ").replace("?", " ").replace("/", " ").replace("'\'", " ").replace(',', " ").replace("#"," ").replace("@", " ").replace("$", " ").replace("&", " ").replace(")", " ").replace('"', " ").replace("-"," ").replace("°", " ").replace("(", " ").split()
+                story.append(str(
+                    file.read().lower().replace(".", " ").replace("'", " ").replace(";", " ").replace(":", " ").replace(
+                        "!", " ").replace("?", " ").replace("/", " ").replace("'\'", " ").replace(',', " ").replace("#",
+                                                                                                                    " ").replace(
+                        "@", " ").replace("$", " ").replace("&", " ").replace(")", " ").replace('"', " ").replace("-",
+                                                                                                                  " ").replace(
+                        "°", " ").replace("(", " ").split()))
 
                 # faccio un merge di tutti i libri
-                array_books += str(story)
+                #print ast.literal_eval(story[i])
+                array_books.append(str(ast.literal_eval(story[i])))
                 i += 1
 
             # creo array string con tutte le lettere di tutti i libri
             array_letters = ""
 
-            for word in story:
-                for c in word:
-                    if c.isalpha():
-                        array_letters += c + ' '
+            j=0
+            while j < 6:
+                for word in ast.literal_eval(array_books[j]):
+                    for c in word:
+                        if c.isalpha():
+                            array_letters += c + ' '
+                j+=1
 
+            print array_letters
             # adesso dell'array_letters ne calcolo le occorrenze
             alphabet = ['a', 'b', 'c', 'd', 'e', 'f', 'g', 'h', 'i', 'j', 'k', 'l', 'm', 'n', 'o', 'p', 'q', 'r', 's', 't','u', 'v', 'w', 'x', 'y', 'z']
 
@@ -71,13 +84,13 @@ while int_option is None:
             with open('dictionary_letters.txt') as input_file:
               data_loaded = json.load(input_file)
 
-            j = 0
-            while j < 26:
-                #print alphabet[j]
-                #print array_letters.count(alphabet[j])
-                #print ''
-                data.append({'letter':alphabet[j],'occ': array_letters.count(alphabet[j])})
-                j+=1
+            k = 0
+            while k < 26:
+                print alphabet[k]
+                print array_letters.count(alphabet[k])
+                print ''
+                data.append({'letter':alphabet[k],'occ': array_letters.count(alphabet[k])})
+                k+=1
 
             ## Save our changes to JSON file
             jsonFile = open("dictionary_letters.txt", "w+")
@@ -90,17 +103,17 @@ while int_option is None:
         elif opt == '2':
 
             array_without_occurence = ""
+            story = []
 
             i=0
             #scorro tutti i libri
             while i < 6:
                 file = open(books[i], "r")
                 # bisogna togliere la punteggiature [".", ";", ":", "!", "?", "/", "\\", ",", "#", "@", "$", "&", ")", "(", "\""]
-                story = file.read().lower().replace("."," ").replace("'"," ").replace(";"," ").replace(":"," ").replace("!"," ").replace("?"," ").replace("/"," ").replace("'\'"," ").replace(','," ").replace("#"," ").replace("@"," ").replace("$"," ").replace("&"," ").replace(")"," ").replace('"'," ").replace("-"," ").replace("°"," ").replace("("," ").split()
-
+                story.append(str(file.read().lower().replace("."," ").replace("'"," ").replace(";"," ").replace(":"," ").replace("!"," ").replace("?"," ").replace("/"," ").replace("'\'"," ").replace(','," ").replace("#"," ").replace("@"," ").replace("$"," ").replace("&"," ").replace(")"," ").replace('"'," ").replace("-"," ").replace("°"," ").replace("("," ").split()))
 
                 #aggiungo le parole non doppie
-                for word in story:
+                for word in ast.literal_eval(story[i]):
                     if not array_without_occurence.__contains__(word):
                         array_without_occurence += word + '\n'
 
@@ -110,10 +123,6 @@ while int_option is None:
             # scrivo e creo file cifrato
             file = open("dictionary_words.txt", "w")
             file.write(array_without_occurence)
-
-            #leggo a video file appena creato
-            file = open("dictionary_words.txt", "r")
-            print file.read()
 
             print "dictionary_words created!\n\n"
 
@@ -264,7 +273,7 @@ while int_option is None:
         dictionary = file1.read().lower()
 
         #il bruteforce viene fatto due alla volta, ovvero per il numero 3 viene fatto sia (+3) che (-3)
-        offset_bruteforce=1
+        offset_bruteforce=2
 
         while offset_bruteforce < 27:
             story_bruteforce_positive = ""
@@ -314,7 +323,7 @@ while int_option is None:
             #cerco di capire la percentuale giusta
             if int(percent_plus) > 90:
                 print "# FIND! #"
-                print 'the offset is a (+'+str(offset_bruteforce)+')\n'
+                print 'the offset used is (-'+str(offset_bruteforce)+')\n'
 
                 # scrivo e creo file cifrato
                 file = open("STORY_BRUTEFORCE.txt", "w")
@@ -324,7 +333,7 @@ while int_option is None:
 
             elif int(percent_minus) > 90:
                 print "# FIND! #"
-                print 'the offset is a (-'+str(offset_bruteforce) + ')\n'
+                print 'the offset used is (+'+str(offset_bruteforce) + ')\n'
 
                 # scrivo e creo file cifrato
                 file = open("STORY_BRUTEFORCE.txt", "w")
