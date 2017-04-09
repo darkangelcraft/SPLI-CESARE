@@ -3,6 +3,7 @@ import os
 import glob
 import re
 import json
+import difflib
 
 # variabile globale che mi serve per identificare il libro scelto da cifrare
 file_choosen = -1
@@ -132,7 +133,7 @@ while int_option is None:
 
     # o o o o o o o o o o o o o o o o o o o o o o o o o o o o o o o o o o o o o o o o o o o o o o #
 
-    # cifra
+    # CIFRATURA
     elif option1 == '2':
         print 'the book choosen is: ' + books[int(file_choosen)]
 
@@ -183,6 +184,7 @@ while int_option is None:
 
     # o o o o o o o o o o o o o o o o o o o o o o o o o o o o o o o o o o o o o o o o o o o o o o #
 
+    #DECIFRATURA
     elif option1 == '3':
         print 'the book to decipher is: ' + books[int(file_choosen)]
 
@@ -248,8 +250,91 @@ while int_option is None:
     # o o o o o o o o o o o o o o o o o o o o o o o o o o o o o o o o o o o o o o o o o o o o o o #
 
     elif option1 == '6':
-        print 'waiting...'
-        os.system('sudo nc -l -p 3333 | pv -rb > ' + books[int(file_choosen)])
+        print 'the book to hacking is: '+books[int(file_choosen)]+'\n'
+
+        print books[int(file_choosen)]
+
+        # aggiusto prima il file eliminando maiuscole al suo interno
+        file = open('STORY_CIPHER.txt', "r+")
+        story_cipher = file.read()
+        #print story
+
+        # (inizio il bruteforce!)
+        file1 = open('dictionary_words.txt', "r+")
+        dictionary = file1.read().lower()
+
+        #il bruteforce viene fatto due alla volta, ovvero per il numero 3 viene fatto sia (+3) che (-3)
+        offset_bruteforce=1
+
+        while offset_bruteforce < 27:
+            story_bruteforce_positive = ""
+            story_bruteforce_negative = ""
+
+            # inizio decifrazione avendo noto l'offset
+            for c in story_cipher:
+                # restituisce True se e un carattere ABCabc
+                if c.isalpha():
+                    # ord('a') -> 97
+                    # chr(97 + 3) -> chr(100) -> 'd'
+
+                    # numero corrispondente in ASCII
+                    character = str(c)
+                    # print character
+                    old = ord(character)
+                    # print int(old)
+
+                    # numero shiftato destra
+                    new_positive = int(old) + offset_bruteforce
+                    if new_positive > 122:
+                        new_positive = new_positive - 26
+
+                    # numero shiftato a sinistra
+                    new_negative = int(old) - offset_bruteforce
+                    if new_negative < 97:
+                        new_negative = new_negative + 26
+
+                    story_bruteforce_positive = story_bruteforce_positive + chr(new_positive)
+                    story_bruteforce_negative = story_bruteforce_negative + chr(new_negative)
+                    # print chr(new)
+
+                #e un carattere lo lascio cosi
+                else:
+                    character = str(c)
+                    story_bruteforce_positive = story_bruteforce_positive + character
+                    story_bruteforce_negative = story_bruteforce_negative + character
+
+            percent_plus = round(difflib.SequenceMatcher(None, story_bruteforce_positive, dictionary).ratio() * 10000)
+            percent_minus = round(difflib.SequenceMatcher(None, story_bruteforce_negative, dictionary).ratio() * 10000)
+
+            #stampo tutte le percentuali:
+            print 'percent (+'+str(offset_bruteforce)+') ---> '+ str(percent_plus)
+            print 'percent (-'+str(offset_bruteforce)+') ---> '+ str(percent_minus)
+            print '\n'
+
+            #cerco di capire la percentuale giusta
+            if int(percent_plus) > 90:
+                print "# FIND! #"
+                print 'the offset is a (+'+str(offset_bruteforce)+')\n'
+
+                # scrivo e creo file cifrato
+                file = open("STORY_BRUTEFORCE.txt", "w")
+                file.write(story_bruteforce_positive)
+
+                offset_bruteforce=28
+
+            elif int(percent_minus) > 90:
+                print "# FIND! #"
+                print 'the offset is a (-'+str(offset_bruteforce) + ')\n'
+
+                # scrivo e creo file cifrato
+                file = open("STORY_BRUTEFORCE.txt", "w")
+                file.write(story_bruteforce_negative)
+
+                offset_bruteforce=28
+
+            offset_bruteforce+=1
+
+        print "story_bruteforce created!\n\n"
 
     # o o o o o o o o o o o o o o o o o o o o o o o o o o o o o o o o o o o o o o o o o o o o o o #
 
