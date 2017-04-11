@@ -3,12 +3,10 @@ import os
 import glob
 import json
 import ast
-import enchant
-import difflib
 import time
-import thread
 
-# def thread1(story_bruteforce_positive):
+#
+# def myThread1(story_bruteforce_positive):
 #     wordp = story_bruteforce_positive.split()[i]
 #     if dictionary.__contains__(wordp):
 #         en_pos.append(True)
@@ -286,6 +284,9 @@ while int_option is None:
         offset_bruteforce=1
 
         while offset_bruteforce < 27:
+
+            t1 = time.time()
+
             story_bruteforce_positive = ""
             story_bruteforce_negative = ""
 
@@ -326,15 +327,14 @@ while int_option is None:
             en_pos=[]
             en_neg=[]
 
-            t1=time.time()
 
             i=0
             n=len(story_bruteforce_positive.split())
             # visto che hanno entrambe uguale lunghezza
             # posso usare direttamente la meta della parole tanto sono sufficienti per far match con il dizionario
-            # per velocizzarlo di quasi 2s posso anche arrivare a n/3
-            while i < n/2:
-                #TODO: provare con multithread! (ci mette 5sec a offset)
+            # per velocizzarlo di quasi 2s posso anche arrivare a n/3,n/4 perche sarebbero 2000 parole
+            while i < n/4:
+                #TODO: provare con multithread! (ci mette 3sec a offset)
                 wordp=story_bruteforce_positive.split()[i]
                 if dictionary.__contains__(wordp):
                     en_pos.append(True)
