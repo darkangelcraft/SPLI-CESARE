@@ -364,7 +364,6 @@ while int_option is None:
             # posso usare direttamente la meta della parole tanto sono sufficienti per far match con il dizionario
             # per velocizzarlo di quasi 2s posso anche arrivare a n/3,n/4 perche sarebbero 2000 parole
             # n/10 equivale a 1000 parole e sono abbastanza
-            print "n-->"+str(n/10)
             while i < n/10:
 
                 wordp=story_bruteforce_positive.split()[i]
@@ -382,6 +381,10 @@ while int_option is None:
 
             percent_plus = (float(en_pos.count(True))/float(len(en_pos)))*100
             percent_minus= (float(en_neg.count(True))/float(len(en_neg)))*100
+
+            print 'offset (+'+str(offset_bruteforce)+') ---> '+str(round(percent_plus,1))+'%'
+            print 'offset (-'+str(offset_bruteforce) + ') ---> ' + str(round(percent_minus,1))+'%'
+            print ''
 
             if int(percent_plus) > 80:
                 print "# FIND! #"
@@ -403,7 +406,7 @@ while int_option is None:
 
                 offset_bruteforce = 28
 
-            print str(round((time.time() - t1), 1)) + 's'
+            #print str(round((time.time() - t1), 1)) + 's'
             #fallito passo all offset successivo
             offset_bruteforce+=1
 
@@ -420,7 +423,7 @@ while int_option is None:
         file = open('STORY_CIPHER.txt', "r+")
         story_cipher = file.read()
 
-        # (inizio il attacco per frequenza!)
+        # (inizio l attacco per frequenza!)
         #mi calcolo le occorrenze delle lettere del cifrato, scopo ultimo ovviamente risalire all'offset usato
 
         letter_more_used=open("letters_more_used.txt", "r").read()
@@ -549,35 +552,31 @@ while int_option is None:
             print 'for (-'+str(offset_bruteforce)+') --> '+letter_more_used_negative[:-1]
             print ''
 
-            check_positive=0
-            check_negative=0
             i=0
 
-            while i < len(sorted_list_negative):
-                if(str(letter_more_used[i])==str(letter_more_used_positive[i])):
-                    check_positive+=1
-                if (str(letter_more_used[i])==str(letter_more_used_negative[i])):
-                    check_negative += 1
-                i+=1
+            if (letter_more_used[0] == letter_more_used_positive[0]):
+                if (letter_more_used[1] == letter_more_used_positive[1]):
+                    print "# FIND! #"
+                    print 'the offset used is (-' + str(offset_bruteforce) + ')\n'
+                    offset_bruteforce = 28
 
-            print 'positivo -> '+str(check_positive)
-            print 'negativo -> '+str(check_negative)
-            print ''
+                    # scrivo e creo file cifrato
+                    file = open("STORY_FREQUENCE.txt", "w")
+                    file.write(story_bruteforce_positive)
 
-            if (check_positive == len(sorted_list_negative)):
-                print "trovato positivo!"
-                offset_bruteforce=28
+            elif (letter_more_used[0] == letter_more_used_negative[0]):
+                if (letter_more_used[1] == letter_more_used_negative[1]):
+                    print "# FIND! #"
+                    print 'the offset used is (+' + str(offset_bruteforce) + ')\n'
+                    offset_bruteforce = 28
 
-            elif (check_negative == len(sorted_list_negative)):
-                print "trovato positivo!"
-                offset_bruteforce=28
-
+                    # scrivo e creo file cifrato
+                    file = open("STORY_FREQUENCE.txt", "w")
+                    file.write(story_bruteforce_negative)
             else:
                 offset_bruteforce+=1
 
-
-
-
+        print 'story_frequence.txt created!\n\n'
 
     # o o o o o o o o o o o o o o o o o o o o o o o o o o o o o o o o o o o o o o o o o o o o o o #
 
