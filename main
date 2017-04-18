@@ -4,14 +4,8 @@ import glob
 import json
 import ast
 import time
-
-#
-# def myThread1(story_bruteforce_positive):
-#     wordp = story_bruteforce_positive.split()[i]
-#     if dictionary.__contains__(wordp):
-#         en_pos.append(True)
-#     else:
-#         en_pos.append(False)
+#libreria che serve per importare il file ruby di francesco
+from Naked.toolshed.shell import execute_rb
 
 
 # variabile globale che mi serve per identificare il libro scelto da cifrare
@@ -37,7 +31,8 @@ while int_option is None:
     print '4) invia'
     print '5) ricevi'
     print '6) attacco bruteforce'
-    print '7) attacco per frequenza'
+    print '7) attacco per frequenza (.py)'
+    print '8) attacco per frequenza (.rb)'
 
     try:
         option1 = raw_input()
@@ -298,8 +293,16 @@ while int_option is None:
 
     elif option1 == '6':
         print 'the book to hacking is: '+books[int(file_choosen)]+'\n'
-
         print books[int(file_choosen)]
+
+        print "########  ########  ##     ## ######## ######## ########  #######  ########   ######  ######## "
+        print "##     ## ##     ## ##     ##    ##    ##       ##       ##     ## ##     ## ##    ## ##       "
+        print "##     ## ##     ## ##     ##    ##    ##       ##       ##     ## ##     ## ##       ##       "
+        print "########  ########  ##     ##    ##    ######   ######   ##     ## ########  ##       ######   "
+        print "##     ## ##   ##   ##     ##    ##    ##       ##       ##     ## ##   ##   ##       ##       "
+        print "##     ## ##    ##  ##     ##    ##    ##       ##       ##     ## ##    ##  ##    ## ##       "
+        print "########  ##     ##  #######     ##    ######## ##        #######  ##     ##  ######  ######## "
+
 
         # apro il file cifrato
         file = open('STORY_CIPHER.txt', "r+")
@@ -579,6 +582,16 @@ while int_option is None:
         print 'story_frequence.txt created!\n\n'
 
     # o o o o o o o o o o o o o o o o o o o o o o o o o o o o o o o o o o o o o o o o o o o o o o #
+
+    elif option1 == '8':
+        print 'import ruby file...'
+
+        print "\t\nMAIN MENU"
+        print "\n1) dictionaries exist?"
+        print "2) create frequency_dictionary"
+        print "3) create words_dictionary"
+        print "4) make attack and exit"
+        success = execute_rb('frequency_attacker.rb')
 
     else:
         print "ERROR"
