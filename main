@@ -31,8 +31,7 @@ while int_option is None:
     print '4) invia'
     print '5) ricevi'
     print '6) attacco bruteforce'
-    print '7) attacco per frequenza (.py)'
-    print '8) attacco per frequenza (.rb)'
+    print '7) attacco per frequenza'
 
     try:
         option1 = raw_input()
@@ -301,7 +300,7 @@ while int_option is None:
         print "########  ########  ##     ##    ##    ######   ######   ##     ## ########  ##       ######   "
         print "##     ## ##   ##   ##     ##    ##    ##       ##       ##     ## ##   ##   ##       ##       "
         print "##     ## ##    ##  ##     ##    ##    ##       ##       ##     ## ##    ##  ##    ## ##       "
-        print "########  ##     ##  #######     ##    ######## ##        #######  ##     ##  ######  ######## "
+        print "########  ##     ##  #######     ##    ######## ##        #######  ##     ##  ######  ######## \n"
 
 
         # apro il file cifrato
@@ -419,8 +418,16 @@ while int_option is None:
 
     elif option1 == '7':
         print 'the book to hacking is: ' + books[int(file_choosen)] + '\n'
-
         print books[int(file_choosen)]
+
+        print "######## ########  ########  #######  ##     ## ######## ##    ##  ######  ######## "
+        print "##       ##     ## ##       ##     ## ##     ## ##       ###   ## ##    ## ##       "
+        print "##       ##     ## ##       ##     ## ##     ## ##       ####  ## ##       ##       "
+        print "######   ########  ######   ##     ## ##     ## ######   ## ## ## ##       ######   "
+        print "##       ##   ##   ##       ##  ## ## ##     ## ##       ##  #### ##       ##       "
+        print "##       ##    ##  ##       ##    ##  ##     ## ##       ##   ### ##    ## ##       "
+        print "##       ##     ## ########  ##### ##  #######  ######## ##    ##  ######  ######## \n"
+
 
         # apro il file cifrato
         file = open('STORY_CIPHER.txt', "r+")
@@ -582,16 +589,6 @@ while int_option is None:
         print 'story_frequence.txt created!\n\n'
 
     # o o o o o o o o o o o o o o o o o o o o o o o o o o o o o o o o o o o o o o o o o o o o o o #
-
-    elif option1 == '8':
-        print 'import ruby file...'
-
-        print "\t\nMAIN MENU"
-        print "\n1) dictionaries exist?"
-        print "2) create frequency_dictionary"
-        print "3) create words_dictionary"
-        print "4) make attack and exit"
-        success = execute_rb('frequency_attacker.rb')
 
     else:
         print "ERROR"
