@@ -4,9 +4,6 @@ import glob
 import json
 import ast
 import time
-#libreria che serve per importare il file ruby di francesco
-from Naked.toolshed.shell import execute_rb
-
 
 # variabile globale che mi serve per identificare il libro scelto da cifrare
 file_choosen = -1
