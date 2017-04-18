@@ -1,0 +1,22 @@
+attacco per frequenza fatto da Francesco
+
+HOW TO USE:
+
+1)aprire terminale
+2)lanciare il programma "frequency_attacker.rb con la keyword "ruby"
+  $ ruby frequency_attacker.rb
+3)creare i dizionari selezionando dal main menu '2' e successivamente '3'
+4)iniziare l'attacco per frequenza delle lettere e parole prese dai 6 libri di Conan Doyle
+5)aprire il file decriptato 'frequency_decrypted_text.txt'
+
+
+FAQ:
+
+-input.txt ?
+è il file input.txt sarebbe il file criptato che il programma deve decriptare!
+-frequency_decrypted_text.txt ?
+è il file decifrato dal programma applicando l'offset trovato
+-frequency_dictionary.txt ?
+sono tutti i 6 libri in append uno all'altro
+-words_dictionary.txt ?
+è l'unione di tutte le parole di tutti i 6 libri ripetute una volta sola
