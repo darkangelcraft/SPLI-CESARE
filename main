@@ -26,8 +26,8 @@ while int_option is None:
     print '1) scegli file'
     print '2) cifra'
     print '3) decifra'
-    print '4) invia (netcat)'
-    print '5) ricevi (netcat)'
+    print '4) ricevi (netcat)'
+    print '5) invia (netcat)'
     print '6) attacco bruteforce'
     print '7) attacco per frequenza'
 
@@ -276,16 +276,18 @@ while int_option is None:
     # o o o o o o o o o o o o o o o o o o o o o o o o o o o o o o o o o o o o o o o o o o o o o o #
 
     elif option1 == '4':
+        print '\033[34myou need pv packet bel!\033[0m'
         print 'waiting...'
-        os.system('sudo nc -l -p 3333 | pv -rb > STORY_CIPHER.txt')
+        os.system('sudo nc -l -p 3333 | pv -rb > received_file.txt')
 
     # o o o o o o o o o o o o o o o o o o o o o o o o o o o o o o o o o o o o o o o o o o o o o o #
 
     elif option1 == '5':
+        print '\033[34myou need pv packet bel!\033[0m'
         print 'sending with netcat'
         print "insert ip target:"
         ip = raw_input()
-        os.system('sudo pv received_file.txt | nc -w 1 ' + ip + ' 3333')
+        os.system('sudo pv STORY_CIPHER.txt | nc -w 1 ' + ip + ' 3333')
 
     # o o o o o o o o o o o o o o o o o o o o o o o o o o o o o o o o o o o o o o o o o o o o o o #
 
