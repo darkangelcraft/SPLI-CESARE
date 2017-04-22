@@ -14,9 +14,6 @@ books = glob.glob("*_.txt")
 # mi faccio un array di lettere piu usate da Conan Doyle
 letter_more_used = ""
 
-#mi serve per passarlo con la socket
-encrypted_file=""
-
 # adesso dell'array_letters ne calcolo le occorrenze
 alphabet = ['a', 'b', 'c', 'd', 'e', 'f', 'g', 'h', 'i', 'j', 'k', 'l', 'm', 'n', 'o', 'p', 'q', 'r', 's', 't', 'u','v', 'w', 'x', 'y', 'z']
 
@@ -33,8 +30,6 @@ while int_option is None:
     print '5) ricevi (netcat)'
     print '6) attacco bruteforce'
     print '7) attacco per frequenza'
-    print '8) invia (socket)'
-    print '9) ricevi (socket)'
 
     try:
         option1 = raw_input()
@@ -290,7 +285,7 @@ while int_option is None:
         print 'sending with netcat'
         print "insert ip target:"
         ip = raw_input()
-        os.system('sudo pv STORY_CIPHER.txt | nc -w 1 ' + ip + ' 3333')
+        os.system('sudo pv received_file.txt | nc -w 1 ' + ip + ' 3333')
 
     # o o o o o o o o o o o o o o o o o o o o o o o o o o o o o o o o o o o o o o o o o o o o o o #
 
@@ -593,96 +588,6 @@ while int_option is None:
         print 'story_frequence.txt created!\n\n'
 
     # o o o o o o o o o o o o o o o o o o o o o o o o o o o o o o o o o o o o o o o o o o o o o o #
-
-    # client.py
-    elif option1 == '8':
-        PORT = 6000
-        HOST = '192.168.88.137'
-        socket = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
-        socket.bind((HOST, PORT))
-        socket.listen(1)
-        conn, addr = socket.accept()
-        print '\033[46m\033[34m\033[1mBienvenido al File Sender v.0.02 hecho en Python. Este programa permite enviar archivos a traves de tu maquina\033[0m'
-        ANSI_BACKGROUND = '\033[46m'
-        ANSI_RED = '\033[31m'
-        ANSI_BLUE = '\033[34m'
-        ESCAPEANSI = '\033[0m'
-
-
-        def seleccion_path():
-            PATH = raw_input('\033[34m\033[1mSelect the Path (./ by default)').strip('n')
-            if PATH == '':
-                PATH = os.getcwd()
-            print PATH, ESCAPEANSI
-            acepta_path = raw_input('\033[34m\033[1mSi o No (S/N)').lower().strip(' ')
-            if acepta_path == 's' or acepta_path == 'si':
-                return PATH
-            else:
-                seleccion_path()
-
-
-        def filesDir(path):
-            files = os.listdir(PATH)
-            for fl in files:
-                i = int(files.index(fl)) + 1
-                print ANSI_RED + str(i) + ')' + fl
-            return files
-
-
-        PATH = seleccion_path()
-        print 'el PATH seleccionado es:', PATH + '\n'
-        filesDir(PATH)
-        fileSelected = int(raw_input(ANSI_BLUE + 'Select a file with the number').strip(' ').lower())
-        print PATH + filesDir(PATH)[fileSelected - 1]
-
-        filepath = PATH + filesDir(PATH)[fileSelected - 1]
-        # envia nombre del file
-        conn.send(filepath)
-        qLines = len(open(PATH + filesDir(PATH)[fileSelected - 1], 'rb').readlines())
-        fileToSend = open(filepath, 'rb')
-        while True:
-            data = fileToSend.readline()
-            if data:
-                conn.send(data)
-            else:
-                break
-        fileToSend.close()
-        conn.sendall('')
-        conn.close()
-        print '\033[43m File sent'
-        # Finaliza el programa y deja los codigos ANSI cerrados
-        print ESCAPEANSI
-        exit()
-    # o o o o o o o o o o o o o o o o o o o o o o o o o o o o o o o o o o o o o o o o o o o o o o #
-
-    # server.py
-    elif option1 == '9':
-
-        PORT = 6000
-        HOST = '192.168.88.137'
-        ANSI_BACKGROUND = '\033[44m'
-        ANSI_RED = '\033[31m'
-        ANSI_BLUE = '\033[34m'
-        ESCAPEANSI = '\033[0m'
-        print ANSI_BLUE + 'Welcome to the Data Transfer application'
-        nombrearchivo = raw_input('define a name with its extension').strip(' ')
-        socket = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
-        socket.connect((HOST, PORT))
-        filename = socket.recv(1024)
-        # fname = open('./asd.pdf', 'wb')
-        fname = open('./' + nombrearchivo, 'wb')
-
-        while True:
-            strng = socket.recv(1024)
-            if strng:
-                fname.write(strng)
-            else:
-                fname.close()
-                break
-        socket.close()
-        print ESCAPEANSI
-        print ANSI_BACKGROUND + ANSI_RED + 'Data received correctly'
-        exit()
 
     else:
         print "ERROR"
