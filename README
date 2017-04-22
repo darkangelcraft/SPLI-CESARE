@@ -48,4 +48,9 @@ ______________________
 123		{
 
 quindi se ho come lettera la "z" con un offset di +1 NON diventa "{", ma bensì "a"! 
+
+
+# SNIFFER.PY #
+per far funzionare lo sniffer.py è preferibile esser in ambiente Linux, e installare il pacchetto pcapy
+$ apt-get install pcapy
   
