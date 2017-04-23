@@ -31,7 +31,6 @@ while int_option2 is None:
     # RECEIVER
     if option2 == '1':
         print 'waiting...'
-        os.chdir('Bob')
         os.system('nc -l -p 3333 | pv -rb > STORY_CIPHER.txt')
 
     # o o o o o o o o o o o o o o o o o o o o o o o o o o o o o o o o o o o o o o o o o o o o o o #
@@ -83,7 +82,7 @@ while int_option2 is None:
         file = open("STORY_CLEAR.txt", "w")
         file.write(story_clear)
 
-        print "story_clear created!\n\n"
+        print "\033[92mstory_clear created!\n\n\033[0m"
 
     # o o o o o o o o o o o o o o o o o o o o o o o o o o o o o o o o o o o o o o o o o o o o o o #
 

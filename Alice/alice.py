@@ -110,7 +110,7 @@ while int_option1 is None:
         file = open("STORY_CIPHER.txt", "w")
         file.write(story_cipher)
 
-        print "story_cipher created!\n\n"
+        print "\033[92mstory_cipher created!\n\n\033[0m"
 
     # o o o o o o o o o o o o o o o o o o o o o o o o o o o o o o o o o o o o o o o o o o o o o o #
 
