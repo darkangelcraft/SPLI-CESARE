@@ -37,7 +37,9 @@ while int_option3 is None:
         int_option3 = None
 
     if option3 == '1':
-        print 'xxxxx'
+        os.chdir('/Users/alanguerzi/Documents/SPLI-CESARE')
+        os.system('python sniffer.py')
+
 
     #bruteforce
     elif option3 == '2':
