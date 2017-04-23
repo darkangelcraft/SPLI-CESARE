@@ -162,6 +162,9 @@ def parse_packet(packet):
 
 
 if __name__ == "__main__":
-    f = open("sniffato.txt", "wb")
+
+    os.chdir('/Users/alanguerzi/Documents/SPLI-CESARE/Charlie')
+
+    f = open("STORY_CIPHER.txt", "wb")
     main(sys.argv)
 
