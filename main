@@ -1,11 +1,5 @@
 # coding=utf-8
 import os
-import glob
-import json
-import ast
-import socket
-import time
-
 
 print '\nchoose configuration:\n'
 print '1) Alice (SENDER)'
