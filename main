@@ -14,17 +14,17 @@ print '3) Charlie (SNIFFER)'
 
 choose = raw_input()
 
-#alice (sender)
+# alice (sender)
 if choose == '1':
-    os.chdir('/Users/alanguerzi/Documents/SPLI-CESARE/Alice')
+    os.chdir('Alice')
     os.system('python alice.py')
 
 # bob (receiver)
 elif choose == '2':
-    os.chdir('/Users/alanguerzi/Documents/SPLI-CESARE/Bob')
+    os.chdir('Bob')
     os.system('python bob.py')
 
 # charlie (sniffer)
 elif choose == '3':
-    os.chdir('/Users/alanguerzi/Documents/SPLI-CESARE/Charlie')
+    os.chdir('Charlie')
     os.system('python charlie.py')

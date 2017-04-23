@@ -31,7 +31,7 @@ while int_option2 is None:
     # RECEIVER
     if option2 == '1':
         print 'waiting...'
-        os.chdir('/Users/alanguerzi/Documents/SPLI-CESARE/Bob')
+        os.chdir('Bob')
         os.system('nc -l -p 3333 | pv -rb > STORY_CIPHER.txt')
 
     # o o o o o o o o o o o o o o o o o o o o o o o o o o o o o o o o o o o o o o o o o o o o o o #
@@ -39,8 +39,6 @@ while int_option2 is None:
     # DECIFRATURA
     elif option2 == '2':
 
-        # per vedere i libri devo fare cd ..
-        os.chdir('/Users/alanguerzi/Documents/SPLI-CESARE')
         # cosi non mi stampa anche STORY_CIPHER e STORY_CLEAR
         books = glob.glob("*_.txt")
 
@@ -81,9 +79,6 @@ while int_option2 is None:
                 character = str(c)
                 story_clear = story_clear + character
 
-        # prima devo tornare nella folder Bob
-        os.chdir('/Users/alanguerzi/Documents/SPLI-CESARE/Bob')
-
         # scrivo e creo file cifrato
         file = open("STORY_CLEAR.txt", "w")
         file.write(story_clear)
@@ -93,5 +88,4 @@ while int_option2 is None:
     # o o o o o o o o o o o o o o o o o o o o o o o o o o o o o o o o o o o o o o o o o o o o o o #
 
     elif option2 == '3':
-        os.chdir('/Users/alanguerzi/Documents/SPLI-CESARE/Bob')
         print os.system('cat STORY_CIPHER.txt')
