@@ -16,9 +16,11 @@ if choose == '1':
 # bob (receiver)
 elif choose == '2':
     os.chdir('Bob')
+    os.rename('Bob.py', 'bob.py')
     os.system('python bob.py')
 
 # charlie (sniffer)
 elif choose == '3':
     os.chdir('Charlie')
+    os.rename('Charlie.py', 'charlie.py')
     os.system('python charlie.py')
