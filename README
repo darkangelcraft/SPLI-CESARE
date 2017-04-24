@@ -49,7 +49,7 @@ ______________________
 
 quindi se ho come lettera la "z" con un offset di +1 NON diventa "{", ma bensì "a"! 
 
---------------------------------------------------------------------------------------------------------
+--------------------------------------------------------------------------------------
 
 # HOW TO DO
 come funziona?
@@ -71,7 +71,7 @@ tali progetti sono:
 3*) per l'attacco in frequenza si può usare quello già presente al suo interno oppure quello fatto da Francesco 
     all'interno della cartella Frequency Attack (.rb)
 
---------------------------------------------------------------------------------------------------------
+-----------------------------------------------------------------------------------------
 
 # SNIFFER.PY #
 per far funzionare lo sniffer.py è preferibile esser in ambiente Linux, e installare il pacchetto pcapy
