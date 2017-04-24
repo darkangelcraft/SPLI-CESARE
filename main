@@ -9,7 +9,7 @@ print '                    |                        '
 print '                    v                        '
 print '                ---------                    '
 print '               | CHARLIE |                   '
-print '                ---------                    \033[0m'
+print '                ---------                    \033[0m\n'
 
 print '\033[93mper far funzionare il tutto, e necessario cambiare il nome della variabile "wlan"\n(situata subito dopo gli import) nei seguenti file:\n-Alice.py\n-Bob.py\n-Charlie.py\n\033[0m'
 

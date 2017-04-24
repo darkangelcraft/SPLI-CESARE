@@ -124,4 +124,4 @@ while int_option1 is None:
         print 'sending with netcat'
         print "insert ip target:"
         ip = raw_input()
-        os.system('pv STORY_CIPHER.txt | nc -w 1 ' + ip + ' 4000')
+        os.system('pv STORY_CIPHER.txt | nc -w 1 172.30.2.2 4000')
