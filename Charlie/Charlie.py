@@ -5,6 +5,41 @@ import ast
 import time
 import os
 
+wlan = "wlan0"
+#devo configurarlo come gateway C
+
+# impostazione indirizzi IP
+os.system('sudo ifconfig -v ' + wlan + ':1 172.30.1.1/24')
+os.system('sudo ifconfig -v ' + wlan + ':2 172.30.2.1/24')
+
+# cancella le route di default
+os.system('sudo route del default')
+
+# aggiunge route per vedere le reti
+os.system('sudo route add -net 172.30.1.0 netmask 255.255.255.0 gw 172.30.1.1 dev ' + wlan + ':1')
+os.system('sudo route add -net 172.30.2.0 netmask 255.255.255.0 gw 172.30.2.1 dev ' + wlan + ':2')
+
+# abilitare il forwarding dei pacchetti
+os.system('sudo sysctl -w net.ipv4.ip_forward=1')
+
+# disabilita ICMP redirect
+os.system('sudo sysctl -w net.ipv4.conf.all.accept_redirects=0')
+os.system('sudo sysctl -w net.ipv4.conf.all.send_redirects=0')
+
+# default
+os.system('sudo sysctl -w net.ipv4.conf.default.accept_redirects=0')
+os.system('sudo sysctl -w net.ipv4.conf.default.send_redirects=0')
+
+# dev wlan
+os.system('sudo sysctl -w net.ipv4.conf.' + wlan + '.accept_redirects=0')
+os.system('sudo sysctl -w net.ipv4.conf.' + wlan + '.send_redirects=0')
+
+# lo
+os.system('sudo sysctl -w net.ipv4.conf.lo.accept_redirects=0')
+os.system('sudo sysctl -w net.ipv4.conf.lo.send_redirects=0')
+
+###############################################################################
+
 # variabile globale che mi serve per identificare il libro scelto da cifrare
 file_choosen = -1
 

@@ -4,6 +4,13 @@ import glob
 import json
 import ast
 
+wlan = "eth0"
+#devo configurarlo come host A
+os.system('ifconfig ' + wlan + ' 172.30.1.2/24')
+os.system('route add default gw 172.30.1.1')
+
+###############################################################################
+
 # variabile globale che mi serve per identificare il libro scelto da cifrare
 file_choosen = -1
 
