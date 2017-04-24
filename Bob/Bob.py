@@ -32,7 +32,7 @@ while int_option2 is None:
     # RECEIVER
     if option2 == '1':
         print 'waiting...'
-        os.system('nc -l -p 3333 | pv -rb > STORY_CIPHER.txt')
+        os.system('nc -l -p 4000 | pv -rb > STORY_CIPHER.txt')
         print "\033[92mstory_cipher created!\n\n\033[0m"
 
     # o o o o o o o o o o o o o o o o o o o o o o o o o o o o o o o o o o o o o o o o o o o o o o #

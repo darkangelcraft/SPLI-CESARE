@@ -100,9 +100,6 @@ while int_option1 is None:
                 character = str(c)
                 story_cipher = story_cipher + character
 
-        # print story_cipher
-        encrypted_file = story_cipher
-
         # prima devo tornare nella folder Alice
         os.chdir('Alice')
 
@@ -119,4 +116,4 @@ while int_option1 is None:
         print 'sending with netcat'
         print "insert ip target:"
         ip = raw_input()
-        os.system('pv STORY_CIPHER.txt | nc -w 1 ' + ip + ' 3333')
+        os.system('pv STORY_CIPHER.txt | nc -w 1 ' + ip + ' 4000')
