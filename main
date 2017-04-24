@@ -11,16 +11,14 @@ choose = raw_input()
 # alice (sender)
 if choose == '1':
     os.chdir('Alice')
-    os.system('python alice.py')
+    os.system('python Alice.py')
 
 # bob (receiver)
 elif choose == '2':
     os.chdir('Bob')
-    os.rename('Bob.py', 'bob.py')
-    os.system('python bob.py')
+    os.system('python Bob.py')
 
 # charlie (sniffer)
 elif choose == '3':
     os.chdir('Charlie')
-    os.rename('Charlie.py', 'charlie.py')
-    os.system('python charlie.py')
+    os.system('python Charlie.py')
