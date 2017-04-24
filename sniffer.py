@@ -165,6 +165,7 @@ if __name__ == "__main__":
 
     os.chdir('Charlie')
     f = open("STORY_CIPHER.txt", "wb")
-    main(sys.argv)
     print "\033[92mstory_cipher created!\n\n\033[0m"
+    main(sys.argv)
+
 
