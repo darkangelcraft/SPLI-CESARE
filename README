@@ -1,4 +1,4 @@
-SPECIFICHE DI CIFRAZIONE:
+# SPECIFICHE DI CIFRAZIONE:
   durante la cifratura il file.txt è modificato in modo da trasformare le lettere da maiuscole a minuscole!
   per cifrare abbiamo deciso di shiftare in avanti o indietro SOLAMENTE le lettere dell'alfabeto inglese
   'a,b,c,d,e,f,g,h,i,j,k,l,m,n,o,p,q,r,s,t,u,v,w,x,y,z' in tutto sono 26!
@@ -49,8 +49,31 @@ ______________________
 
 quindi se ho come lettera la "z" con un offset di +1 NON diventa "{", ma bensì "a"! 
 
+--------------------------------------------------------------------------------------------------------
+
+# HOW TO DO
+come funziona?
+il programma è composto di 3 progetti richiamati all'interno del file main.py,
+tali progetti sono:
+-Alice.py
+-Bob.py
+-Charlie.py
+
+1) Alice sceglie il file dalla lista dei 6 libri, sceglie l'offset per la cifratura e invia tramite netcat 
+   a Bob il file cifrato.
+2) Bob riceve il file cifrato perchè è in ascolto con netcat sulla porta 4000, e lo decifra con la 
+   chiave di decifratura che conosce.
+3) Charlie fa partire lo sniffer.py e si mette in mezzo tra i due e ne sniffa il file cifrato, 
+   una volta che possiede il file può tentare di crakkarlo mediante due tecniche di decifratura: 
+   attacco bruteforce oppure mediante attacco per frequenza
+   
+3*) per l'attacco in frequenza si può usare quello già presente al suo interno oppure quello fatto da Francesco 
+    all'interno della cartella Frequency Attack (.rb)
+
+--------------------------------------------------------------------------------------------------------
 
 # SNIFFER.PY #
 per far funzionare lo sniffer.py è preferibile esser in ambiente Linux, e installare il pacchetto pcapy
-$ apt-get install python-pcapy
+$ sudo apt-get install python-pcapy
+
   
