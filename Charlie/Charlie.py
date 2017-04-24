@@ -5,7 +5,7 @@ import ast
 import time
 import os
 
-wlan = "wlan0"
+wlan = "eth0"
 #devo configurarlo come gateway C
 
 # impostazione indirizzi IP
