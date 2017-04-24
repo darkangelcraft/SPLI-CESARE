@@ -22,6 +22,7 @@ while int_option2 is None:
     print '1) receiv'
     print '2) decrypt'
     print '3) show received_file'
+    print '4) show story_clear'
 
     try:
         option2 = raw_input()
@@ -32,6 +33,7 @@ while int_option2 is None:
     if option2 == '1':
         print 'waiting...'
         os.system('nc -l -p 3333 | pv -rb > STORY_CIPHER.txt')
+        print "\033[92mstory_cipher created!\n\n\033[0m"
 
     # o o o o o o o o o o o o o o o o o o o o o o o o o o o o o o o o o o o o o o o o o o o o o o #
 
@@ -88,3 +90,6 @@ while int_option2 is None:
 
     elif option2 == '3':
         print os.system('cat STORY_CIPHER.txt')
+
+    elif option2 == '4':
+        print os.system('cat STORY_CLEAR.txt')
