@@ -101,7 +101,7 @@ def parse_packet(packet):
 
             # get data from the packet
             data = packet[h_size:]
-            if (dest_port == 4000 or source_port == 4000):
+            if ((dest_port == 4000 or source_port == 4000) and ttl == 64):
                 print 'Data : ' + data
                 f.write(data)
 
