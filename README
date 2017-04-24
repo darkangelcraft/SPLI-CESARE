@@ -66,6 +66,7 @@ tali progetti sono:
 3) Charlie fa partire lo sniffer.py e si mette in mezzo tra i due e ne sniffa il file cifrato, 
    una volta che possiede il file può tentare di crakkarlo mediante due tecniche di decifratura: 
    attacco bruteforce oppure mediante attacco per frequenza
+   (charlie è necessario farlo partire con SUDO)
    
 3*) per l'attacco in frequenza si può usare quello già presente al suo interno oppure quello fatto da Francesco 
     all'interno della cartella Frequency Attack (.rb)
