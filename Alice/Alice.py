@@ -122,6 +122,4 @@ while int_option1 is None:
     # invio file cifrato con netcat
     elif option1 == '3':
         print 'sending with netcat'
-        print "insert ip target:"
-        ip = raw_input()
         os.system('pv STORY_CIPHER.txt | nc -w 1 172.30.2.2 4000')
