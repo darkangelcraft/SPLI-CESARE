@@ -69,7 +69,6 @@ while int_option3 is None:
     print "4) \tshow file_clear through bruteforce"
     print "5) frequency attack"
     print "6) \tshow file_clear through frequency"
-    print "7) copy file into FrequencyFra.rb"
 
     try:
         option3 = raw_input()
@@ -553,10 +552,3 @@ while int_option3 is None:
 
     elif option3 == '6':
         print os.system('cat STORY_FREQUENCE.txt')
-
-    elif option3 == '7':
-        # per Francesco con il suo progetto ruby
-        os.chdir("../")
-        os.chdir("FrequencyFra")
-        f = open("input.txt", "wb")
-
