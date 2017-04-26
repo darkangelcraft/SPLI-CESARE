@@ -37,6 +37,7 @@ while int_option1 is None:
     print '1) select file'
     print '2) crypt'
     print '3) send'
+    print '4) \tshow file_encrypted'
 
     try:
         option1 = raw_input()
@@ -123,3 +124,8 @@ while int_option1 is None:
     elif option1 == '3':
         print 'sending with netcat'
         os.system('pv STORY_CIPHER.txt | nc -w 1 172.30.2.2 4000')
+
+    # o o o o o o o o o o o o o o o o o o o o o o o o o o o o o o o o o o o o o o o o o o o o o o #
+
+    elif option1 == '4':
+        os.system('cat STORY_CIPHER.txt')

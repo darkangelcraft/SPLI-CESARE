@@ -166,11 +166,6 @@ if __name__ == "__main__":
     os.chdir('Charlie')
     f = open("STORY_CIPHER.txt", "wb")
 
-    #per Francesco con il suo progetto ruby
-    os.chdir("../")
-    os.chdir("Frequency Attack (.rb)")
-    f = open("input.txt", "wb")
-
     print "\033[92mstory_cipher created!\n\n\033[0m"
     main(sys.argv)
 

@@ -64,8 +64,12 @@ while int_option3 is None:
 
     print "0) create dictionary"
     print "1) sniffing packet"
-    print "2) bruteforce attack"
-    print "3) frequency attack"
+    print "2) \tshow file_sniffed"
+    print "3) bruteforce attack"
+    print "4) \tshow file_clear through bruteforce"
+    print "5) frequency attack"
+    print "6) \tshow file_clear through frequency"
+    print "7) copy file into FrequencyFra.rb"
 
     try:
         option3 = raw_input()
@@ -74,9 +78,9 @@ while int_option3 is None:
 
     if option3 == '0':
         # crea dizionari
-        print '1) per lettere'
-        print '2) per parole'
-        print '3) array delle lettere piu usate'
+        print '1) to letters'
+        print '2) to words'
+        print '3) to letters more used'
 
         opt = raw_input()
 
@@ -232,9 +236,11 @@ while int_option3 is None:
         os.chdir("../")
         os.system('python sniffer.py')
 
+    elif option3 == '2':
+        print os.system('cat STORY_CIPHER.txt')
 
     #bruteforce
-    elif option3 == '2':
+    elif option3 == '3':
 
         # cosi non mi stampa anche STORY_CIPHER e STORY_CLEAR
         books = glob.glob("*_.txt")
@@ -359,10 +365,15 @@ while int_option3 is None:
 
         print "story_bruteforce created!\n\n"
 
-        # o o o o o o o o o o o o o o o o o o o o o o o o o o o o o o o o o o o o o o o o o o o o o o #
+    # o o o o o o o o o o o o o o o o o o o o o o o o o o o o o o o o o o o o o o o o o o o o o o #
+
+    elif option3 == '4':
+        print os.system('cat STORY_BRUTEFORCE.txt')
+
+    # o o o o o o o o o o o o o o o o o o o o o o o o o o o o o o o o o o o o o o o o o o o o o o #
 
     #frequency
-    elif option3 == '3':
+    elif option3 == '5':
 
         # cosi non mi stampa anche STORY_CIPHER e STORY_CLEAR
         books = glob.glob("*_.txt")
@@ -537,4 +548,15 @@ while int_option3 is None:
                 offset_bruteforce += 1
 
         print "\033[92mstory_frequence created!\n\n\033[0m"
+
+    # o o o o o o o o o o o o o o o o o o o o o o o o o o o o o o o o o o o o o o o o o o o o o o #
+
+    elif option3 == '6':
+        print os.system('cat STORY_FREQUENCE.txt')
+
+    elif option3 == '7':
+        # per Francesco con il suo progetto ruby
+        os.chdir("../")
+        os.chdir("FrequencyFra")
+        f = open("input.txt", "wb")
 
