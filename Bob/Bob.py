@@ -4,8 +4,8 @@ import glob
 
 wlan = "eth0"
 #devo configurarlo come host B
-os.system('ifconfig ' + wlan + ' 172.30.2.2/24')
-os.system('route add default gw 172.30.2.1')
+#os.system('ifconfig ' + wlan + ' 172.30.2.2/24')
+#os.system('route add default gw 172.30.2.1')
 
 ###############################################################################
 
